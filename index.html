@@ -230,13 +230,16 @@
     <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
 
     <script>
-    // Инициализируем Supabase клиент
-    const supabaseUrl = 'https://yohribvursfwpbnyshiv.supabase.co';
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvaHJpYnZ1cnNmd3BibnlzaGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyMzIwNTYsImV4cCI6MjA3MjgwODA1Nn0.Spem2pILqlPhUcW770hWiLyRsshLDtNQ_nZJJa3ovyM';
-    
     // Создаем клиент Supabase
-    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+    const supabase = window.supabase.createClient(
+        window.SUPABASE_CONFIG.URL,
+        window.SUPABASE_CONFIG.ANON_KEY
+    );
 
+    // Делаем supabase глобально доступным
+    window.supabaseClient = supabase;
+
+    console.log('Supabase initialized successfully');
     // Глобальные переменные
     let currentUser = null;
     let allFilms = [];
