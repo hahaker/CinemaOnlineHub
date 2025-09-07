@@ -6,7 +6,7 @@
     <title>MyCinema - Онлайн кинотеатр</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <!-- Иконки (Font Awesome) -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/src/style.css"><link rel="stylesheet" href="/src/style.css">
 </head>
 <body class="bg-gray-900 text-white min-h-screen flex flex-col">
     <!-- Шапка -->
@@ -178,7 +178,17 @@
             </div>
         </section>
     </main>
-
+    <div class="container mx-auto p-4">
+    <div class="flex space-x-4 mb-4">
+        <button onclick="loadAllFilms()" class="bg-blue-600 hover:bg-blue-700 px-4 py-2 rounded">
+            <i class="fas fa-sync mr-2"></i>Загрузить фильмы
+        </button>
+        <button onclick="testConnection()" class="bg-green-600 hover:bg-green-700 px-4 py-2 rounded">
+            <i class="fas fa-plug mr-2"></i>Тест подключения
+        </button>
+    </div>
+    <!-- остальной контент -->
+    </div>
     <!-- Подвал -->
     <footer class="bg-gray-800 py-8 mt-12">
         <div class="container mx-auto px-4">
