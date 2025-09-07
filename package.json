@@ -1,0 +1,26 @@
+{
+  "name": "cinemaonlinehub",
+  "version": "1.0.0",
+  "description": "develop stage",
+  "main": "config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hahaker/CinemaOnlineHub.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hahaker/CinemaOnlineHub/issues"
+  },
+  "homepage": "https://github.com/hahaker/CinemaOnlineHub#readme",
+  "devDependencies": {
+    "vite": "^7.1.4"
+  }
+}
