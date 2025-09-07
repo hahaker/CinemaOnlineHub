@@ -22,7 +22,7 @@
                 <!-- Поиск (скрыт на мобильных) -->
                 <div class="hidden md:flex flex-1 max-w-2xl mx-6">
                     <div class="relative w-full">
-                        <input type="text" placeholder="Поиск фильмов..." 
+                        <input type="text" id="searchInputDesktop" placeholder="Поиск фильмов..." 
                                class="w-full bg-gray-700 border border-gray-600 rounded-full py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-transparent">
                         <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
                     </div>
@@ -46,7 +46,7 @@
 
                 <!-- Кнопки для мобильных -->
                 <div class="flex items-center space-x-4 md:hidden">
-                    <button class="text-gray-300 hover:text-white">
+                    <button class="text-gray-300 hover:text-white" onclick="toggleMobileSearch()">
                         <i class="fas fa-search text-lg"></i>
                     </button>
                     <button id="mobile-menu-button" class="text-gray-300 hover:text-white">
@@ -57,8 +57,8 @@
 
             <!-- Мобильное меню (скрыто по умолчанию) -->
             <div id="mobile-menu" class="hidden md:hidden mt-4 pb-4">
-                <div class="relative mb-4">
-                    <input type="text" placeholder="Поиск..." 
+                <div class="relative mb-4 hidden" id="mobileSearchContainer">
+                    <input type="text" id="searchInputMobile" placeholder="Поиск..." 
                            class="w-full bg-gray-700 border border-gray-600 rounded-full py-2 px-4 text-white focus:outline-none focus:ring-2 focus:ring-red-500">
                     <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
                 </div>
@@ -123,28 +123,28 @@
             </div>
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
                 <!-- Категория -->
-                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer" onclick="loadFilmsByCategory('popular')">
                     <i class="fas fa-fire text-red-500 text-2xl mb-2"></i>
                     <p class="text-sm font-medium">Популярные</p>
                 </div>
                 <!-- Еще категории -->
-                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer" onclick="loadFilmsByCategory('new')">
                     <i class="fas fa-star text-yellow-400 text-2xl mb-2"></i>
                     <p class="text-sm font-medium">Новинки</p>
                 </div>
-                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer" onclick="loadFilmsByCategory('comedy')">
                     <i class="fas fa-theater-masks text-blue-400 text-2xl mb-2"></i>
                     <p class="text-sm font-medium">Комедии</p>
                 </div>
-                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer" onclick="loadFilmsByCategory('drama')">
                     <i class="fas fa-heart text-pink-500 text-2xl mb-2"></i>
                     <p class="text-sm font-medium">Мелодрамы</p>
                 </div>
-                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer" onclick="loadFilmsByCategory('horror')">
                     <i class="fas fa-ghost text-purple-500 text-2xl mb-2"></i>
                     <p class="text-sm font-medium">Ужасы</p>
                 </div>
-                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer">
+                <div class="bg-gray-800 rounded-xl p-4 text-center hover:bg-gray-700 transition-colors cursor-pointer" onclick="loadFilmsByCategory('fantasy')">
                     <i class="fas fa-rocket text-green-400 text-2xl mb-2"></i>
                     <p class="text-sm font-medium">Фантастика</p>
                 </div>
@@ -155,94 +155,25 @@
         <section class="mb-12">
             <div class="flex items-center justify-between mb-6">
                 <h2 class="text-2xl font-bold">Популярные сейчас</h2>
-                <a href="#" class="text-red-400 hover:text-red-300 text-sm">Смотреть все →</a>
+                <a href="#" class="text-red-400 hover:text-red-300 text-sm" onclick="loadAllFilms()">Смотреть все →</a>
             </div>
-            <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
-                <!-- Карточка фильма -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden rounded-lg mb-3">
-                        <img src="https://picsum.photos/300/450?random=2" 
-                             alt="Интерстеллар" 
-                             class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
-                            <button class="bg-red-600 hover:bg-red-700 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                        <div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
-                            8.9
-                        </div>
-                    </div>
-                    <h3 class="font-semibold text-sm mb-1 line-clamp-1">Интерстеллар</h3>
-                    <p class="text-gray-400 text-xs">2024 • Фантастика</p>
+            <div id="filmsGrid" class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 md:gap-6">
+                <!-- Фильмы будут загружаться здесь -->
+                <div class="text-center py-10">
+                    <i class="fas fa-spinner fa-spin text-2xl text-red-600"></i>
+                    <p class="mt-2 text-gray-400">Загрузка фильмов...</p>
                 </div>
-
-                <!-- Еще карточки (повторить 5-6 раз) -->
-                <div class="group cursor-pointer">
-                    <div class="relative overflow-hidden rounded-lg mb-3">
-                        <img src="https://picsum.photos/300/450?random=3" 
-                             alt="Крестный отец" 
-                             class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-300">
-                        <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
-                            <button class="bg-red-600 hover:bg-red-700 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
-                                <i class="fas fa-play"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <h3 class="font-semibold text-sm mb-1 line-clamp-1">Крестный отец</h3>
-                    <p class="text-gray-400 text-xs">2024 • Криминал</p>
-                </div>
-                
-                <!-- Добавьте еще 4-5 карточек здесь -->
             </div>
         </section>
 
         <!-- Рекомендации для вас -->
         <section class="mb-12">
             <h2 class="text-2xl font-bold mb-6">Рекомендуем вам</h2>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                <!-- Большая карточка рекомендации -->
-                <div class="bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors">
-                    <img src="https://picsum.photos/600/300?random=4" 
-                         alt="Начало" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Начало</h3>
-                        <p class="text-gray-300 text-sm mb-4">Специалист по кражам ценностей получает задание внедрить идею в подсознание человека.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="bg-red-600 text-xs px-3 py-1 rounded-full">Фантастика</span>
-                            <span class="text-yellow-400 text-sm">★ 8.7</span>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Еще рекомендации -->
-                <div class="bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors">
-                    <img src="https://picsum.photos/600/300?random=5" 
-                         alt="Форрест Гамп" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Форрест Гамп</h3>
-                        <p class="text-gray-300 text-sm mb-4">История человека с низким IQ, который стал свидетелем ключевых событий американской истории.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="bg-red-600 text-xs px-3 py-1 rounded-full">Драма</span>
-                            <span class="text-yellow-400 text-sm">★ 8.8</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors">
-                    <img src="https://picsum.photos/600/300?random=6" 
-                         alt="Бойцовский клуб" 
-                         class="w-full h-48 object-cover">
-                    <div class="p-4">
-                        <h3 class="font-bold text-lg mb-2">Бойцовский клуб</h3>
-                        <p class="text-gray-300 text-sm mb-4">Страдающий бессонницей офисный работник и харизматичный торговец мылом создают подпольный бойцовский клуб.</p>
-                        <div class="flex justify-between items-center">
-                            <span class="bg-red-600 text-xs px-3 py-1 rounded-full">Триллер</span>
-                            <span class="text-yellow-400 text-sm">★ 8.8</span>
-                        </div>
-                    </div>
+            <div id="recommendationsGrid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <!-- Рекомендации будут загружаться здесь -->
+                <div class="text-center py-10">
+                    <i class="fas fa-spinner fa-spin text-2xl text-red-600"></i>
+                    <p class="mt-2 text-gray-400">Загрузка рекомендаций...</p>
                 </div>
             </div>
         </section>
@@ -280,9 +211,9 @@
                     <h3 class="text-lg font-bold mb-4">Подписка</h3>
                     <p class="text-gray-400 text-sm mb-4">Подпишитесь на рассылку, чтобы получать уведомления о новинках</p>
                     <div class="flex">
-                        <input type="email" placeholder="Ваш email" 
+                        <input type="email" id="newsletterEmail" placeholder="Ваш email" 
                                class="bg-gray-700 text-white px-4 py-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-red-500 flex-grow">
-                        <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-r-lg transition-colors">
+                        <button class="bg-red-600 hover:bg-red-700 px-4 py-2 rounded-r-lg transition-colors" onclick="subscribeNewsletter()">
                             <i class="fas fa-paper-plane"></i>
                         </button>
                     </div>
@@ -295,12 +226,388 @@
         </div>
     </footer>
 
+    <!-- Подключаем Supabase JS библиотеку -->
+    <script src="https://unpkg.com/@supabase/supabase-js@2"></script>
+
     <script>
-        // Простой JavaScript для мобильного меню
-        document.getElementById('mobile-menu-button').addEventListener('click', function() {
-            const menu = document.getElementById('mobile-menu');
-            menu.classList.toggle('hidden');
+    // Инициализируем Supabase клиент
+    const supabaseUrl = 'https://yohribvursfwpbnyshiv.supabase.co';
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlvaHJpYnZ1cnNmd3BibnlzaGl2Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTcyMzIwNTYsImV4cCI6MjA3MjgwODA1Nn0.Spem2pILqlPhUcW770hWiLyRsshLDtNQ_nZJJa3ovyM';
+    
+    // Создаем клиент Supabase
+    const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
+
+    // Глобальные переменные
+    let currentUser = null;
+    let allFilms = [];
+
+    // ===== ОСНОВНЫЕ ФУНКЦИИ ДЛЯ РАБОТЫ С БД =====
+
+    // 1. Загрузка всех фильмов
+    async function loadAllFilms() {
+        try {
+            showLoading('filmsGrid');
+            let { data: films, error } = await supabase
+                .from('films')
+                .select('*')
+                .order('rating', { ascending: false });
+
+            if (error) throw error;
+            
+            allFilms = films;
+            renderFilms(films, 'filmsGrid');
+            
+        } catch (error) {
+            console.error('Ошибка загрузки фильмов:', error);
+            showError('filmsGrid', 'Ошибка загрузки фильмов');
+        }
+    }
+
+    // 2. Поиск фильмов
+    async function searchFilms(query) {
+        try {
+            if (query.length < 2) {
+                loadAllFilms();
+                return;
+            }
+
+            let { data: films, error } = await supabase
+                .from('films')
+                .select('*')
+                .ilike('title', `%${query}%`)
+                .order('rating', { ascending: false });
+
+            if (error) throw error;
+            renderFilms(films, 'filmsGrid');
+            
+        } catch (error) {
+            console.error('Ошибка поиска:', error);
+        }
+    }
+
+    // 3. Загрузка фильмов по категории
+    async function loadFilmsByCategory(category) {
+        try {
+            showLoading('filmsGrid');
+            let query = supabase
+                .from('films')
+                .select('*')
+                .order('rating', { ascending: false });
+
+            switch(category) {
+                case 'popular':
+                    query = query.gte('rating', 8.0);
+                    break;
+                case 'new':
+                    query = query.gte('release_year', 2023);
+                    break;
+                case 'comedy':
+                    query = query.ilike('genre', '%комедия%');
+                    break;
+                case 'drama':
+                    query = query.ilike('genre', '%драма%');
+                    break;
+                case 'horror':
+                    query = query.ilike('genre', '%ужас%');
+                    break;
+                case 'fantasy':
+                    query = query.ilike('genre', '%фантастика%');
+                    break;
+            }
+
+            let { data: films, error } = await query;
+
+            if (error) throw error;
+            renderFilms(films, 'filmsGrid');
+            
+        } catch (error) {
+            console.error('Ошибка загрузки по категории:', error);
+            showError('filmsGrid', 'Ошибка загрузки');
+        }
+    }
+
+    // 4. Загрузка рекомендаций
+    async function loadRecommendations() {
+        try {
+            showLoading('recommendationsGrid');
+            let { data: films, error } = await supabase
+                .from('films')
+                .select('*')
+                .order('rating', { ascending: false })
+                .limit(3);
+
+            if (error) throw error;
+            renderRecommendations(films);
+            
+        } catch (error) {
+            console.error('Ошибка загрузки рекомендаций:', error);
+            showError('recommendationsGrid', 'Ошибка загрузки рекомендаций');
+        }
+    }
+
+    // 5. Добавление в избранное
+    async function addToFavorites(filmId) {
+        try {
+            if (!currentUser) {
+                alert('Пожалуйста, войдите в систему чтобы добавить в избранное');
+                return;
+            }
+
+            const { data, error } = await supabase
+                .from('favorites')
+                .insert([{ user_id: currentUser.id, film_id: filmId }]);
+
+            if (error) throw error;
+            
+            alert('Фильм добавлен в избранное!');
+            
+        } catch (error) {
+            console.error('Ошибка добавления в избранное:', error);
+            alert('Ошибка добавления в избранное');
+        }
+    }
+
+    // 6. Подписка на рассылку
+    async function subscribeNewsletter() {
+        try {
+            const email = document.getElementById('newsletterEmail').value;
+            
+            if (!email) {
+                alert('Пожалуйста, введите email');
+                return;
+            }
+
+            const { data, error } = await supabase
+                .from('newsletter')
+                .insert([{ email: email, subscribed_at: new Date() }]);
+
+            if (error) throw error;
+            
+            alert('Вы успешно подписались на рассылку!');
+            document.getElementById('newsletterEmail').value = '';
+            
+        } catch (error) {
+            console.error('Ошибка подписки:', error);
+            alert('Ошибка подписки на рассылку');
+        }
+    }
+
+    // 7. Регистрация пользователя
+    async function registerUser(email, password) {
+        try {
+            const { data, error } = await supabase.auth.signUp({
+                email: email,
+                password: password
+            });
+
+            if (error) throw error;
+            return data;
+            
+        } catch (error) {
+            console.error('Ошибка регистрации:', error);
+            throw error;
+        }
+    }
+
+    // 8. Вход пользователя
+    async function loginUser(email, password) {
+        try {
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email: email,
+                password: password
+            });
+
+            if (error) throw error;
+            
+            currentUser = data.user;
+            return data;
+            
+        } catch (error) {
+            console.error('Ошибка входа:', error);
+            throw error;
+        }
+    }
+
+    // 9. Выход пользователя
+    async function logoutUser() {
+        try {
+            const { error } = await supabase.auth.signOut();
+            if (error) throw error;
+            
+            currentUser = null;
+            
+        } catch (error) {
+            console.error('Ошибка выхода:', error);
+        }
+    }
+
+    // 10. Получение избранных фильмов
+    async function getFavorites() {
+        try {
+            if (!currentUser) return [];
+
+            let { data: favorites, error } = await supabase
+                .from('favorites')
+                .select(`
+                    film_id,
+                    films (*)
+                `)
+                .eq('user_id', currentUser.id);
+
+            if (error) throw error;
+            return favorites.map(fav => fav.films);
+            
+        } catch (error) {
+            console.error('Ошибка загрузки избранного:', error);
+            return [];
+        }
+    }
+
+    // ===== ВСПОМОГАТЕЛЬНЫЕ ФУНКЦИИ =====
+
+    // Отображение фильмов
+    function renderFilms(films, containerId) {
+        const container = document.getElementById(containerId);
+        if (!films || films.length === 0) {
+            container.innerHTML = `
+                <div class="col-span-full text-center py-10">
+                    <i class="fas fa-film text-3xl text-gray-600 mb-4"></i>
+                    <p class="text-gray-400">Фильмы не найдены</p>
+                </div>
+            `;
+            return;
+        }
+
+        container.innerHTML = films.map(film => `
+            <div class="group cursor-pointer">
+                <div class="relative overflow-hidden rounded-lg mb-3">
+                    <img src="${film.poster_url || 'https://picsum.photos/300/450'}" 
+                         alt="${film.title}" 
+                         class="w-full aspect-[2/3] object-cover group-hover:scale-105 transition-transform duration-300">
+                    <div class="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-50 transition-all duration-300 flex items-center justify-center">
+                        <button onclick="playFilm(${film.id})" class="bg-red-600 hover:bg-red-700 text-white p-3 rounded-full opacity-0 group-hover:opacity-100 transform translate-y-4 group-hover:translate-y-0 transition-all duration-300">
+                            <i class="fas fa-play"></i>
+                        </button>
+                    </div>
+                    <div class="absolute top-2 right-2 bg-yellow-500 text-black text-xs font-bold px-2 py-1 rounded">
+                        ${film.rating?.toFixed(1) || 'N/A'}
+                    </div>
+                </div>
+                <h3 class="font-semibold text-sm mb-1 line-clamp-1">${film.title}</h3>
+                <p class="text-gray-400 text-xs">${film.release_year} • ${film.genre}</p>
+                <button onclick="addToFavorites(${film.id})" class="mt-2 text-red-400 hover:text-red-300 text-xs">
+                    <i class="fas fa-heart mr-1"></i>В избранное
+                </button>
+            </div>
+        `).join('');
+    }
+
+    // Отображение рекомендаций
+    function renderRecommendations(films) {
+        const container = document.getElementById('recommendationsGrid');
+        if (!films || films.length === 0) return;
+
+        container.innerHTML = films.map(film => `
+            <div class="bg-gray-800 rounded-xl overflow-hidden hover:bg-gray-700 transition-colors">
+                <img src="${film.poster_url || 'https://picsum.photos/600/300'}" 
+                     alt="${film.title}" 
+                     class="w-full h-48 object-cover">
+                <div class="p-4">
+                    <h3 class="font-bold text-lg mb-2">${film.title}</h3>
+                    <p class="text-gray-300 text-sm mb-4 line-clamp-3">${film.description || 'Описание отсутствует'}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="bg-red-600 text-xs px-3 py-1 rounded-full">${film.genre || 'Не указан'}</span>
+                        <span class="text-yellow-400 text-sm">★ ${film.rating?.toFixed(1) || 'N/A'}</span>
+                    </div>
+                    <button onclick="playFilm(${film.id})" class="w-full mt-4 bg-red-600 hover:bg-red-700 px-4 py-2 rounded transition-colors">
+                        Смотреть
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    }
+
+    // Показать загрузку
+    function showLoading(containerId) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = `
+            <div class="col-span-full text-center py-10">
+                <i class="fas fa-spinner fa-spin text-2xl text-red-600"></i>
+                <p class="mt-2 text-gray-400">Загрузка...</p>
+            </div>
+        `;
+    }
+
+    // Показать ошибку
+    function showError(containerId, message) {
+        const container = document.getElementById(containerId);
+        container.innerHTML = `
+            <div class="col-span-full text-center py-10">
+                <i class="fas fa-exclamation-triangle text-2xl text-red-600"></i>
+                <p class="mt-2 text-gray-400">${message}</p>
+                <button onclick="loadAllFilms()" class="mt-4 bg-red-600 hover:bg-red-700 px-4 py-2 rounded">
+                    Попробовать снова
+                </button>
+            </div>
+        `;
+    }
+
+    // Воспроизведение фильма
+    function playFilm(filmId) {
+        const film = allFilms.find(f => f.id === filmId);
+        if (film && film.video_url) {
+            window.open(film.video_url, '_blank');
+        } else {
+            alert('Видео недоступно для просмотра');
+        }
+    }
+
+    // Переключение поиска на мобильных
+    function toggleMobileSearch() {
+        const searchContainer = document.getElementById('mobileSearchContainer');
+        const menu = document.getElementById('mobile-menu');
+        
+        searchContainer.classList.toggle('hidden');
+        if (!searchContainer.classList.contains('hidden')) {
+            menu.classList.remove('hidden');
+        }
+    }
+
+    // ===== ИНИЦИАЛИЗАЦИЯ =====
+
+    // Обработчики событий
+    document.getElementById('searchInputDesktop').addEventListener('input', (e) => {
+        searchFilms(e.target.value);
+    });
+
+    document.getElementById('searchInputMobile').addEventListener('input', (e) => {
+        searchFilms(e.target.value);
+    });
+
+    document.getElementById('mobile-menu-button').addEventListener('click', function() {
+        const menu = document.getElementById('mobile-menu');
+        menu.classList.toggle('hidden');
+    });
+
+    // Загрузка данных при старте
+    document.addEventListener('DOMContentLoaded', function() {
+        loadAllFilms();
+        loadRecommendations();
+        
+        // Проверка авторизации
+        supabase.auth.getUser().then(({ data: { user } }) => {
+            currentUser = user;
         });
+    });
+
+    // Глобальное экспортирование функций для HTML
+    window.addToFavorites = addToFavorites;
+    window.playFilm = playFilm;
+    window.loadFilmsByCategory = loadFilmsByCategory;
+    window.loadAllFilms = loadAllFilms;
+    window.subscribeNewsletter = subscribeNewsletter;
+    window.toggleMobileSearch = toggleMobileSearch;
+
     </script>
 </body>
 </html>
